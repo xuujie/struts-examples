@@ -1,10 +1,14 @@
 package org.apache.struts.crud.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Arrays;
 
 /**
  * Models a Person who registers.
- * 
+ * <p>
  * Person is Cloneable just an implemention technique for in-memory daos.
  *
  * @author bruce phillips
@@ -12,23 +16,35 @@ import java.util.Arrays;
  */
 public class Person implements Cloneable {
     private Integer personId;
+
+    @NotEmpty(message = "{errors.required.firstName}")
     private String firstName;
+
+    @NotEmpty(message = "{errors.required.lastName}")
     private String lastName;
     private String sport;
     private String gender;
     private Country country = new Country("", "");
     private boolean over21;
+
+    @Size(min = 1, message = "{errors.min.size.carModels}")
     private String[] carModels;
+
+    @NotEmpty(message = "{errors.required.email}")
+    @Email(message = "{errors.invalid.email}")
     private String email;
+
+    @NotEmpty(message = "{errors.required.phoneNumber}")
+    @Pattern(regexp = "\\d{3}-\\d{3}-\\d{4}", message = "{errors.invalid.phoneNumber}")
     private String phoneNumber;
-    
-    public Person()  {
-    
+
+    public Person() {
+
     }
-    
-    public Person(Integer id, String firstName, String lastName, String sport, 
-                String gender, Country country, boolean over21, String[] carModels, 
-                String email, String phoneNumber) {
+
+    public Person(Integer id, String firstName, String lastName, String sport,
+                  String gender, Country country, boolean over21, String[] carModels,
+                  String email, String phoneNumber) {
         this.personId = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,7 +56,7 @@ public class Person implements Cloneable {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
-    
+
     public Integer getPersonId() {
         return personId;
     }
@@ -64,7 +80,7 @@ public class Person implements Cloneable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     public String getSport() {
         return sport;
     }
@@ -104,7 +120,7 @@ public class Person implements Cloneable {
     public String[] getCarModels() {
         return carModels;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -120,7 +136,7 @@ public class Person implements Cloneable {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
