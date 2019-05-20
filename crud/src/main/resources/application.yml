@@ -5,4 +5,13 @@ spring:
       suffix: .jsp
   messages:
     basename: messages
-#    use-code-as-default-message: true
+  security:
+    user:
+      name: crud
+      password: crud
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
